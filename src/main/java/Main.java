@@ -5,10 +5,14 @@ import ThirdScenario.AddDelimiters;
 
 class Main {
     public static void main(String[] args) {
+        long start = System.currentTimeMillis();
         argIInterpreter(args);
+        System.out.println(System.currentTimeMillis() - start);
     }
     private static void argIInterpreter(String[] args) {
         if (args.length > 1) System.out.println("You enter more then one argument");
+
+        if (args.length < 1) System.out.println("You need enter command. For help write \"-h\" or \"help\"");
 
         if (args[0].equals("-f")) {
             MyProperty.initF();

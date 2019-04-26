@@ -10,30 +10,24 @@ public class FileSeparator {
     public static void separateAndSave() {
         String fileName = MyProperty.getStartFileName();
         String resultFilePath = MyProperty.getResultFilePath();
-        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String firstLine;
-            while ((firstLine = reader.readLine()) != null) {
-                StringBuilder res = separate(reader, firstLine);
-                saveInFile(res, resultFilePath);
-                res.setLength(0);
-            }
-        }
-        catch (IOException e) { e.printStackTrace(); }
-    }
-    private static StringBuilder separate(BufferedReader reader, String firstLine) {
         StringBuilder result = new StringBuilder();
         int counter = 0;
-        result.append(firstLine).append("\n");
-        String s;
-        try {
-            while ((s = reader.readLine()) != null && counter != fileSize) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line).append("\n");
                 counter++;
-                result.append(s).append("\n");
+                if (counter == fileSize) {
+                    saveInFile(result, resultFilePath);
+                    result.setLength(0);
+                    counter = 0;
+                }
             }
+            saveInFile(result, resultFilePath);
         }
         catch (IOException e) { e.printStackTrace(); }
 
-        return result;
+
     }
     private static void saveInFile(StringBuilder filePart, String resultFilePath) {
         String defaultName = resultFilePath + fileName + countForName;

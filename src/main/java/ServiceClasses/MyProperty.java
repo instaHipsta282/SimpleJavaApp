@@ -11,24 +11,17 @@ public class MyProperty {
     private static String resultFilePath;
     private static String regEx;
     private static String delimiterType;
+
     public static void initF() {
-        Properties properties = new Properties();
-        load(properties);
-        startFileName = properties.getProperty("startFileName");
-        resultFilePath = properties.getProperty("resultFilePath");
+        //noinspection unused
+        Properties properties = commonProperties();
     }
     public static void initS() {
-        Properties properties = new Properties();
-        load(properties);
-        startFileName = properties.getProperty("startFileName");
-        resultFilePath = properties.getProperty("resultFilePath");
+        Properties properties = commonProperties();
         regEx = properties.getProperty("regEx");
     }
     public static void initT() {
-        Properties properties = new Properties();
-        load(properties);
-        startFileName = properties.getProperty("startFileName");
-        resultFilePath = properties.getProperty("resultFilePath");
+        Properties properties = commonProperties();
         delimiterType = properties.getProperty("delimiterType");
     }
 
@@ -37,6 +30,13 @@ public class MyProperty {
             prop.load(inputStream);
         }
         catch (IOException e) { e.printStackTrace(); }
+    }
+    private static Properties commonProperties() {
+        Properties properties = new Properties();
+        load(properties);
+        startFileName = properties.getProperty("startFileName");
+        resultFilePath = properties.getProperty("resultFilePath");
+        return properties;
     }
 
     public static String getStartFileName() {

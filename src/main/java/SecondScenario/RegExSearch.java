@@ -27,10 +27,11 @@ public class RegExSearch {
         return file;
     }
     private static StringBuilder logParse(StringBuilder file) {
-        String regEx = MyProperty.getRegEx();
+        String regEx = MyProperty.getRegEx() + ".*";
         StringBuilder result = new StringBuilder();
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(file);
+
         while (m.find()) {
             result.append(m.group()).append("\n");
         }
